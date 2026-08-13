@@ -295,6 +295,7 @@ const settingsForm = /** @type {HTMLFormElement} */ (settingsModal.querySelector
 /** @type {AppState} */
 let currentState = "idle";
 let settings = loadSettings();
+inputVoice.value = settings.voice;
 
 // ── Connection target ────────────────────────────────────────────────────────
 // Three modes, decided by the deploy via /api/config:
@@ -1109,6 +1110,16 @@ inputTransport.addEventListener("change", () => {
   settings.transport = inputTransport.value === "webrtc" ? "webrtc" : "ws";
   localStorage.setItem(STORAGE_KEYS.transport, settings.transport);
   syncTransportUi();
+});
+
+// The stage voice picker is intentionally outside Settings: persist a choice
+// immediately and push it into a live session for the next spoken response.
+inputVoice.addEventListener("change", () => {
+  settings.voice = inputVoice.value || DEFAULT_VOICE;
+  localStorage.setItem(STORAGE_KEYS.voice, settings.voice);
+  if (client && LIVE_STATES.has(currentState)) {
+    client.updateSession({ voice: settings.voice });
+  }
 });
 
 restartBtn.addEventListener("click", async () => {

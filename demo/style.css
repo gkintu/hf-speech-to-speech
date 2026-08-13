@@ -574,6 +574,55 @@ a:hover {
   min-height: 0;
 }
 
+/* Voice belongs beside the conversation, not buried in deployment settings.
+ * The compact glass capsule stays visually secondary to the orb while making
+ * the active speaker obvious and one gesture away. */
+.voice-picker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  max-width: min(92vw, 360px);
+  padding: 6px 7px 6px 13px;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--bg-elev) 82%, transparent);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  backdrop-filter: blur(14px);
+}
+
+.voice-picker-label {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+
+.voice-picker select {
+  min-width: 0;
+  max-width: 255px;
+  padding: 7px 30px 7px 11px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  outline: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.voice-picker select:hover,
+.voice-picker select:focus-visible {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border-strong));
+  background: var(--bg-elev-2);
+}
+
 /* ─── Central circle ──────────────────────────────────────────────────── */
 
 /* Wraps the orb and its two side controls so they stay aligned on one row. */
@@ -1330,6 +1379,10 @@ body.booting *::after {
   justify-content: center;
   opacity: 0.55;
   transition: opacity 0.25s ease;
+}
+.footer[hidden],
+.ident-row[hidden] {
+  display: none;
 }
 .footer:hover {
   opacity: 0.9;

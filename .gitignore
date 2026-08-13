@@ -229,3 +229,7 @@ dmypy.json
 cover/
 .tox/
 uv.lock
+
+# Local speech stack runtime state and logs
+.local-stack/
+models/
